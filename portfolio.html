@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>krlemman_portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14181b;
+    --ink-soft:#1c2226;
+    --bone:#eee9dd;
+    --slate:#8a94a0;
+    --teal:#5fa8a0;
+    --rust:#c4703e;
+    --line: rgba(238,233,221,0.12);
+    --ribbon-h: 64px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{
+    scroll-behavior:smooth;
+  }
+
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  section{
+    scroll-margin-top: var(--ribbon-h);
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--teal); color:var(--ink); }
+
+  /* ---------- RIBBON NAV ---------- */
+  .ribbon{
+    position:fixed;
+    top:0; left:0; right:0;
+    height:var(--ribbon-h);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 clamp(20px, 5vw, 56px);
+    background:rgba(20,24,27,0.82);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    z-index:100;
+  }
+
+  .ribbon-mark{
+    font-family:'Fraunces', serif;
+    font-size:1.05rem;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .ribbon-mark .dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--teal);
+    display:inline-block;
+  }
+
+  .ribbon-nav{
+    display:flex;
+    gap:clamp(18px, 3vw, 36px);
+    position:relative;
+  }
+
+  .ribbon-nav a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--slate);
+    padding:8px 2px;
+    position:relative;
+    transition:color 0.25s ease;
+  }
+
+  .ribbon-nav a:hover{
+    color:var(--bone);
+  }
+
+  .ribbon-nav a.active{
+    color:var(--bone);
+  }
+
+  /* the "ribbon tail" — a little bookmark notch that slides under the active tab */
+  .ribbon-tail{
+    position:absolute;
+    bottom:-1px;
+    height:2px;
+    background:var(--teal);
+    border-radius:2px;
+    transition: left 0.35s cubic-bezier(.65,0,.35,1), width 0.35s cubic-bezier(.65,0,.35,1);
+  }
+  .ribbon-tail::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:2px;
+    transform:translateX(-50%);
+    width:0; height:0;
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+    border-top:6px solid var(--teal);
+    opacity:0.9;
+  }
+
+  /* ---------- LAYOUT ---------- */
+  main{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 clamp(20px, 5vw, 32px);
+  }
+
+  section{
+    padding:calc(var(--ribbon-h) + 64px) 0 96px;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom:none; }
+
+  /* ---------- HOME ---------- */
+  #home{ padding-top:calc(var(--ribbon-h) + 100px); }
+
+  .home-name{
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    line-height:1.05;
+    margin:14px 0 18px;
+  }
+
+  .home-bio{
+    max-width:560px;
+    color:var(--slate);
+    font-size:1.02rem;
+    margin-bottom:32px;
+  }
+
+  .home-links{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    padding:12px 20px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    transition: border-color 0.25s ease, transform 0.2s ease, background 0.25s ease;
+  }
+  .btn:hover{
+    border-color:var(--teal);
+    transform:translateY(-2px);
+  }
+  .btn.primary{
+    background:var(--teal);
+    color:var(--ink);
+    border-color:var(--teal);
+  }
+  .btn.primary:hover{
+    background:transparent;
+    color:var(--teal);
+  }
+
+  /* ---------- SKILLS ---------- */
+  .section-head{ margin-bottom:36px; }
+  .section-head h2{ font-size:1.9rem; margin-top:8px; }
+
+  .skills-wrap{
+    border:1px solid var(--line);
+    background:var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    /* full-bleed: break out of the centered main column */
+    width:100vw;
+    position:relative;
+    left:50%;
+    right:50%;
+    margin-left:-50vw;
+    margin-right:-50vw;
+  }
+
+  .skill-belt{
+    overflow:hidden;
+    background:var(--ink);
+    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
+    mask-image:linear-gradient(to right, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
+  }
+
+  .skill-track{
+    display:flex;
+    width:max-content;
+    animation: belt-left 30s linear infinite;
+  }
+  .skill-belt:hover .skill-track{ animation-play-state:paused; }
+
+  .skill-card{
+    flex:0 0 clamp(240px, 24vw, 460px);
+    height:clamp(150px, 18vw, 200px);
+    padding:clamp(20px, 2.4vw, 34px);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    border-right:1px solid var(--line);
+    transition:background 0.25s ease;
+  }
+  .skill-card:hover{
+    background:var(--ink-soft);
+  }
+
+  .skill-card .eyebrow{ color:var(--rust); }
+
+  .skill-card h3{
+    font-size:1.1rem;
+    margin:8px 0 8px;
+    line-height:1.2;
+  }
+
+  .skill-card p{
+    color:var(--slate);
+    font-size:0.86rem;
+  }
+
+  /* slim rotating belt of languages, underneath the skills belt */
+  .lang-belt{
+    overflow:hidden;
+    background:var(--ink-soft);
+    height:46px;
+    display:flex;
+    align-items:center;
+    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+    mask-image:linear-gradient(to right, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+  }
+
+  .lang-track{
+    display:flex;
+    width:max-content;
+    animation: belt-right 24s linear infinite;
+  }
+  .lang-belt:hover .lang-track{ animation-play-state:paused; }
+
+  .lang-item{
+    flex:0 0 clamp(140px, 13vw, 260px);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.76rem;
+    letter-spacing:0.03em;
+    color:var(--slate);
+    white-space:nowrap;
+    height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    border-right:1px solid var(--line);
+    transition:color 0.2s ease;
+  }
+  .lang-item:hover{ color:var(--teal); }
+  .lang-item .lang-dot{
+    width:4px; height:4px;
+    border-radius:50%;
+    background:var(--teal);
+    opacity:0.6;
+  }
+
+  @keyframes belt-left{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  @keyframes belt-right{
+    from{ transform:translateX(-50%); }
+    to{ transform:translateX(0); }
+  }
+
+  /* ---------- WORKS ---------- */
+  .work-item{
+    display:grid;
+    grid-template-columns:64px 1fr auto;
+    align-items:start;
+    gap:20px;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+    transition:transform 0.25s ease;
+  }
+  .work-item:last-child{ border-bottom:1px solid var(--line); }
+  .work-item:hover{ transform:translateX(6px); }
+
+  .work-year{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--slate);
+    padding-top:4px;
+  }
+
+  .work-body h3{
+    font-size:1.2rem;
+    margin-bottom:6px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .work-body p{
+    color:var(--slate);
+    font-size:0.92rem;
+    max-width:460px;
+    margin-bottom:10px;
+  }
+
+  .work-tags{ display:flex; gap:8px; flex-wrap:wrap; }
+  .work-tags span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    color:var(--teal);
+    border:1px solid var(--line);
+    padding:3px 8px;
+    border-radius:2px;
+  }
+
+  .work-link{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    color:var(--slate);
+    white-space:nowrap;
+    padding-top:4px;
+    transition:color 0.2s ease;
+  }
+  .work-item:hover .work-link{ color:var(--teal); }
+
+  /* ---------- CONTACT ---------- */
+  #contact{ padding-bottom:120px; }
+
+  .contact-grid{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    margin-top:8px;
+  }
+
+  .contact-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 4px;
+    border-top:1px solid var(--line);
+    transition:padding-left 0.25s ease, border-color 0.25s ease;
+  }
+  .contact-row:last-child{ border-bottom:1px solid var(--line); }
+
+  .contact-row:hover{
+    padding-left:12px;
+    border-color:var(--teal);
+  }
+
+  .contact-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    color:var(--slate);
+    letter-spacing:0.05em;
+  }
+
+  .contact-value{
+    font-family:'Fraunces', serif;
+    font-size:1.05rem;
+  }
+
+  .contact-row .arrow{
+    opacity:0;
+    transform:translateX(-6px);
+    transition:all 0.25s ease;
+    color:var(--teal);
+  }
+  .contact-row:hover .arrow{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--slate);
+  }
+
+  @media (max-width:640px){
+    .ribbon-nav{ gap:14px; }
+    .work-item{ grid-template-columns:1fr; }
+    .work-link{ padding-top:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+    .skill-track, .lang-track{ animation:none !important; }
+  }
+
+  :focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="ribbon">
+  <a href="#home" class="ribbon-mark"><span class="dot"></span>krl.emman</a>
+  <div class="ribbon-nav" id="ribbonNav">
+    <a href="#home" data-section="home" class="active">Home</a>
+    <a href="#skills" data-section="skills">Skills</a>
+    <a href="#works" data-section="works">Works</a>
+    <a href="#contact" data-section="contact">Contact</a>
+    <span class="ribbon-tail" id="ribbonTail"></span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HOME -->
+  <section id="home">
+    <p class="eyebrow">Summary</p>
+    <h1 class="home-name">Karl Burgos</h1>
+    <p class="home-bio">
+      AI Engineer. I build small projects for fun,
+      learning new things, and occasionally building software for effective altruism.
+      Based in Tuguegarao City, working with teams everywhere.
+    </p>
+    <div class="home-links">
+      <a href="#works" class="btn primary">What I built</a>
+      <a href="#contact" class="btn">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-head">
+      <p class="eyebrow">Skills</p>
+      <h2>What I can do</h2>
+    </div>
+    <div class="skills-wrap">
+      <div class="skill-belt">
+        <div class="skill-track" id="skillTrack">
+          <div class="skill-card">
+            <p class="eyebrow">01</p>
+            <h3>Frontend Engineering</h3>
+            <p>React, TypeScript, and CSS systems built to stay legible as they grow.</p>
+          </div>
+          <div class="skill-card">
+            <p class="eyebrow">02</p>
+            <h3>Backend & APIs</h3>
+            <p>Node and Python services, REST and GraphQL, schema design that lasts.</p>
+          </div>
+          <div class="skill-card">
+            <p class="eyebrow">03</p>
+            <h3>Product Design</h3>
+            <p>Wireframes to high-fidelity UI in Figma, down to the label and error copy.</p>
+          </div>
+          <div class="skill-card">
+            <p class="eyebrow">04</p>
+            <h3>AI & Machine Learning</h3>
+            <p>Building intelligent systems and leveraging AI to solve real-world problems.</p>
+          </div>
+          <!-- duplicate set — required for a seamless loop, keep identical to above -->
+          <div class="skill-card" aria-hidden="true">
+            <p class="eyebrow">01</p>
+            <h3>Frontend Engineering</h3>
+            <p>React, TypeScript, and CSS systems built to stay legible as they grow.</p>
+          </div>
+          <div class="skill-card" aria-hidden="true">
+            <p class="eyebrow">02</p>
+            <h3>Backend & APIs</h3>
+            <p>Node and Python services, REST and GraphQL, schema design that lasts.</p>
+          </div>
+          <div class="skill-card" aria-hidden="true">
+            <p class="eyebrow">03</p>
+            <h3>Product Design</h3>
+            <p>Wireframes to high-fidelity UI in Figma, down to the label and error copy.</p>
+          </div>
+          <div class="skill-card" aria-hidden="true">
+            <p class="eyebrow">04</p>
+            <h3>AI & Machine Learning</h3>
+            <p>Building intelligent systems and leveraging AI to solve real-world problems.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lang-belt">
+        <div class="lang-track" id="langTrack">
+          <span class="lang-item"><span class="lang-dot"></span>Python</span>
+          <span class="lang-item"><span class="lang-dot"></span>Java</span>
+          <span class="lang-item"><span class="lang-dot"></span>C++</span>
+          <span class="lang-item"><span class="lang-dot"></span>Angular</span>
+          <span class="lang-item"><span class="lang-dot"></span>SQL</span>
+          <span class="lang-item"><span class="lang-dot"></span>HTML & CSS</span>
+          <span class="lang-item"><span class="lang-dot"></span>Bash</span>
+          <span class="lang-item"><span class="lang-dot"></span>TypeScript</span>
+          <!-- duplicate set — required for a seamless loop -->
+          <span class="lang-item"><span class="lang-dot"></span>Python</span>
+          <span class="lang-item"><span class="lang-dot"></span>Java</span>
+          <span class="lang-item"><span class="lang-dot"></span>C++</span>
+          <span class="lang-item"><span class="lang-dot"></span>Angular</span>
+          <span class="lang-item"><span class="lang-dot"></span>SQL</span>
+          <span class="lang-item"><span class="lang-dot"></span>HTML & CSS</span>
+          <span class="lang-item"><span class="lang-dot"></span>Bash</span>
+          <span class="lang-item"><span class="lang-dot"></span>TypeScript</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="section-head">
+      <p class="eyebrow">Works(wala pang link)</p>
+      <h2>Stuff I've built</h2>
+    </div>
+
+    <div class="work-item">
+      <span class="work-year">2024</span>
+      <div class="work-body">
+        <h3>NeighborNet</h3>
+        <p>A lightweight social network for connecting neighbors and building community.</p>
+        <div class="work-tags"><span>Figma</span><span>Bootstrap</span><span>MySQL</span></div>
+      </div>
+      <a href="#" class="work-link">View →</a>
+    </div>
+
+    <div class="work-item">
+      <span class="work-year">2025</span>
+      <div class="work-body">
+        <h3>SuperCalendar</h3>
+        <p>Offline-first calendar app for managing events and tasks without an internet connection. Complete with image, videos, and audio support.</p>
+        <div class="work-tags"><span>React</span><span>GoogleCalendar</span></div>
+      </div>
+      <a href="#" class="work-link">View →</a>
+    </div>
+
+    <div class="work-item">
+      <span class="work-year">2026</span>
+      <div class="work-body">
+        <h3>PokeHomeroom</h3>
+        <p>Free-for-all website for pokemon data, typing, and battling. With a comprehensive database and interactive features.</p>
+        <div class="work-tags"><span>HTML/CSS</span><span>MySQL</span><span>JavaScript</span></div>
+      </div>
+      <a href="#" class="work-link">View →</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-head">
+      <p class="eyebrow">Contact</p>
+      <h2>Personal info</h2>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-row" href="mailto:karlburgos36@gmail.com">
+        <span class="contact-label">Email</span>
+        <span class="contact-value">karlburgos36@gmail.com</span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="contact-row" href="#">
+        <span class="contact-label">GitHub</span>
+        <span class="contact-value">github.com/kaelcodes</span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="contact-row" href="#">
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-value">in/karl-burgos-76a0112bb/</span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="contact-row" href="#">
+        <span class="contact-label">Based in</span>
+        <span class="contact-value">Tuguegarao City, PH</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>AI Engineering, simple is best. © 2026 Karl Burgos</footer>
+
+<script>
+  const navLinks = Array.from(document.querySelectorAll('.ribbon-nav a[data-section]'));
+  const tail = document.getElementById('ribbonTail');
+  const sections = navLinks.map(l => document.getElementById(l.dataset.section));
+
+  function moveTailTo(link){
+    const navRect = link.parentElement.getBoundingClientRect();
+    const rect = link.getBoundingClientRect();
+    tail.style.left = (rect.left - navRect.left) + 'px';
+    tail.style.width = rect.width + 'px';
+  }
+
+  function setActive(link){
+    navLinks.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+    moveTailTo(link);
+  }
+
+  // init position after fonts load
+  window.addEventListener('load', () => setActive(navLinks[0]));
+  window.addEventListener('resize', () => {
+    const current = document.querySelector('.ribbon-nav a.active');
+    if(current) moveTailTo(current);
+  });
+
+  // scroll-spy
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const link = navLinks.find(l => l.dataset.section === entry.target.id);
+        if(link) setActive(link);
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(s => s && observer.observe(s));
+</script>
+
+</body>
+</html>
