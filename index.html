@@ -1614,12 +1614,8 @@
   });
 
   /* ---- LIVE VISITOR COUNT (Supabase Realtime Presence) ---- */
-  // HOW TO ENABLE:
-  // 1. Create a free project at https://supabase.com
-  // 2. Project Settings → API → copy Project URL and anon/public key
-  // 3. Paste both values below (the anon key is safe to expose publicly)
-  const SUPA_URL = '';   // e.g. 'https://abcdef.supabase.co'
-  const SUPA_KEY = '';   // your project's anon/public key
+  const SUPA_URL = 'https://ggukefoqvdtotbxtespz.supabase.co';
+  const SUPA_KEY = 'sb_publishable_LBwnmXyieYfXTp1_opk3PA_eN22yMSy';
 
   const visitorCount = document.getElementById('visitorCount');
 
@@ -1630,7 +1626,8 @@
   if(SUPA_URL && SUPA_KEY){
     (function initPresence(){
       const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+      // Pin to 2.49+ — minimum version that accepts sb_publishable_ keys
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js';
       script.onload = function(){
         try {
           const client  = supabase.createClient(SUPA_URL, SUPA_KEY);
@@ -1642,14 +1639,17 @@
               const state = channel.presenceState();
               setCount(Object.keys(state).length);
             })
-            .subscribe(async status => {
+            .subscribe(status => {
               if(status === 'SUBSCRIBED'){
-                await channel.track({ online_at: new Date().toISOString() });
+                channel.track({ online_at: new Date().toISOString() });
+              } else if(status === 'CHANNEL_ERROR' || status === 'TIMED_OUT'){
+                // Realtime join failed (e.g. RLS not configured) — stay on fallback
+                setCount(null);
               }
             });
-        } catch(e){ /* falls back to "online" */ }
+        } catch(e){ setCount(null); }
       };
-      script.onerror = function(){ /* falls back to "online" */ };
+      script.onerror = function(){ setCount(null); };
       document.head.appendChild(script);
     })();
   }
