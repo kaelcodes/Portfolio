@@ -689,6 +689,379 @@
     }
     .ribbon-clock .clock-date{ display:none; }
   }
+
+  /* ---------- RECRUITER MODE ---------- */
+  .rec-overlay{
+    position:fixed;
+    inset:0;
+    z-index:400;
+    background:var(--ink);
+    display:flex;
+    flex-direction:column;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.25s ease;
+    overflow:hidden;
+  }
+  .rec-overlay.open{
+    opacity:1;
+    pointer-events:all;
+  }
+
+  .rec-topbar{
+    flex-shrink:0;
+    height:var(--ribbon-h);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 clamp(20px, 5vw, 56px);
+    background:rgba(20,24,27,0.9);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+
+  .rec-topbar-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .rec-badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink);
+    background:var(--rust);
+    padding:3px 8px;
+    border-radius:2px;
+  }
+
+  .rec-topbar-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--slate);
+  }
+
+  .rec-exit{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--slate);
+    background:none;
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:7px 14px;
+    cursor:pointer;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .rec-exit:hover{
+    border-color:var(--rust);
+    color:var(--bone);
+  }
+
+  .rec-body{
+    flex:1;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    padding:clamp(32px, 6vw, 72px) clamp(20px, 5vw, 56px);
+  }
+
+  .rec-inner{
+    max-width:720px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:48px;
+  }
+
+  /* rec header */
+  .rec-header{
+    padding-bottom:32px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .rec-name{
+    font-family:'Fraunces', serif;
+    font-size:clamp(2rem, 5vw, 3rem);
+    font-weight:500;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin:10px 0 8px;
+  }
+
+  .rec-degree{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.05em;
+    color:var(--teal);
+    text-transform:uppercase;
+    margin-bottom:16px;
+  }
+
+  .rec-summary{
+    color:var(--slate);
+    font-size:1rem;
+    max-width:600px;
+    line-height:1.7;
+  }
+
+  /* rec sections */
+  .rec-section{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  .rec-section-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .rec-section-head h3{
+    font-family:'Fraunces', serif;
+    font-size:1.2rem;
+    font-weight:500;
+  }
+
+  /* education */
+  .rec-edu-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    padding:16px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--ink-soft);
+  }
+  .rec-edu-item h4{
+    font-family:'Fraunces', serif;
+    font-size:1.05rem;
+    font-weight:500;
+    margin-bottom:4px;
+  }
+  .rec-edu-item p{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    color:var(--slate);
+  }
+  .rec-edu-badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.07em;
+    text-transform:uppercase;
+    color:var(--teal);
+    border:1px solid rgba(95,168,160,0.3);
+    padding:4px 9px;
+    border-radius:2px;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+
+  /* skills grid */
+  .rec-skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:8px;
+  }
+
+  .rec-skill-group{
+    padding:14px 16px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--ink-soft);
+  }
+
+  .rec-skill-group-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.63rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--rust);
+    margin-bottom:8px;
+  }
+
+  .rec-skill-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+  }
+
+  .rec-skill-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    color:var(--bone);
+    border:1px solid var(--line);
+    padding:3px 8px;
+    border-radius:2px;
+  }
+
+  /* projects */
+  .rec-project-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .rec-project{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:16px;
+    align-items:start;
+    padding:16px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--ink-soft);
+    text-decoration:none;
+    color:inherit;
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  a.rec-project:hover{
+    border-color:var(--teal);
+    background:rgba(95,168,160,0.05);
+  }
+
+  .rec-project h4{
+    font-family:'Fraunces', serif;
+    font-size:1.05rem;
+    font-weight:500;
+    margin-bottom:4px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .rec-project p{
+    color:var(--slate);
+    font-size:0.88rem;
+    margin-bottom:8px;
+  }
+
+  .rec-project-meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    color:var(--teal);
+  }
+
+  .rec-project-link{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--teal);
+    white-space:nowrap;
+    padding-top:2px;
+  }
+
+  .rec-project-soon{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--slate);
+    white-space:nowrap;
+    padding-top:2px;
+  }
+
+  /* contact */
+  .rec-contact-list{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+
+  .rec-contact-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--ink-soft);
+    text-decoration:none;
+    color:inherit;
+    transition:border-color 0.2s ease;
+  }
+  .rec-contact-row:hover{
+    border-color:var(--teal);
+  }
+
+  .rec-contact-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    color:var(--slate);
+    letter-spacing:0.05em;
+  }
+
+  .rec-contact-value{
+    font-family:'Fraunces', serif;
+    font-size:0.95rem;
+    color:var(--bone);
+  }
+
+  /* resume CTA */
+  .rec-resume-cta{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    align-items:center;
+    padding:32px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--ink-soft);
+    text-align:center;
+  }
+
+  .rec-resume-cta p{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    color:var(--slate);
+    letter-spacing:0.04em;
+  }
+
+  .rec-resume-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--ink);
+    background:var(--teal);
+    border:1px solid var(--teal);
+    border-radius:2px;
+    padding:13px 28px;
+    text-decoration:none;
+    transition:background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+    cursor:pointer;
+  }
+  .rec-resume-btn:hover{
+    background:transparent;
+    color:var(--teal);
+    transform:translateY(-2px);
+  }
+
+  .rec-footer{
+    padding:24px clamp(20px, 5vw, 56px);
+    border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.65rem;
+    color:var(--slate);
+    text-align:center;
+    flex-shrink:0;
+  }
+
+  @media(max-width:640px){
+    .rec-edu-item{ flex-direction:column; gap:10px; }
+    .rec-project{ grid-template-columns:1fr; }
+    .rec-project-link, .rec-project-soon{ padding-top:0; }
+  }
 </style>
 </head>
 <body>
@@ -875,9 +1248,9 @@
 <footer>AI Engineering, simple is best. © 2026 Karl Burgos</footer>
 
 <!-- VISITOR INDICATOR -->
-<div class="visitor-pill" aria-label="You are online">
+<div class="visitor-pill" id="visitorPill" aria-live="polite" aria-label="Visitor status">
   <span class="vpulse" aria-hidden="true"></span>
-  you are online
+  <span id="visitorCount">online</span>
 </div>
 
 <!-- DEV MODE BUTTON -->
@@ -934,9 +1307,204 @@
         </div>
       </div>
 
+      <div>
+        <p class="dev-section-label">Quick Views</p>
+        <button id="openRecruiter" class="dev-build-item" style="width:100%;cursor:pointer;background:none;text-align:left;border-color:rgba(196,112,62,0.35);">
+          <span class="dbi-left">
+            <span style="color:var(--bone);">Recruiter Mode</span>
+            <span class="dbi-meta">30-sec profile · resume · contact</span>
+          </span>
+          <span class="dbi-arrow" style="color:var(--rust);">→</span>
+        </button>
+      </div>
+
     </div>
     <div class="dev-panel-foot">Karl Burgos · Full-Stack / AI Engineer · Tuguegarao City, PH</div>
   </div>
+</div>
+
+<!-- RECRUITER MODE OVERLAY -->
+<div class="rec-overlay" id="recOverlay" role="dialog" aria-modal="true" aria-label="Recruiter profile">
+
+  <div class="rec-topbar">
+    <div class="rec-topbar-left">
+      <span class="rec-badge">Recruiter Mode</span>
+      <span class="rec-topbar-title">Karl Burgos — Quick Profile</span>
+    </div>
+    <button class="rec-exit" id="recExit" aria-label="Exit recruiter mode">✕ Exit Recruiter Mode</button>
+  </div>
+
+  <div class="rec-body">
+    <div class="rec-inner">
+
+      <!-- HEADER -->
+      <div class="rec-header">
+        <p class="eyebrow">Candidate Profile</p>
+        <h1 class="rec-name">Karl Burgos</h1>
+        <p class="rec-degree">Bachelor of Science in Information Technology</p>
+        <p class="rec-summary">
+          Full-Stack and AI Engineer with hands-on experience building web applications,
+          REST/GraphQL APIs, and intelligent systems. Comfortable across the entire stack —
+          from Figma wireframes to production deployments. Driven by effective altruism and
+          a passion for shipping software that is both technically sound and genuinely useful.
+          Based in Tuguegarao City, PH; available to work with teams globally.
+        </p>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="rec-section">
+        <div class="rec-section-head">
+          <p class="eyebrow">Education</p>
+          <h3>Academic Background</h3>
+        </div>
+        <div class="rec-edu-item">
+          <div>
+            <h4>University of Saint Louis Tuguegarao</h4>
+            <p>Bachelor of Science in Information Technology</p>
+          </div>
+          <span class="rec-edu-badge">Expected May 2027</span>
+        </div>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="rec-section">
+        <div class="rec-section-head">
+          <p class="eyebrow">Skills</p>
+          <h3>Technical Competencies</h3>
+        </div>
+        <div class="rec-skills-grid">
+          <div class="rec-skill-group">
+            <p class="rec-skill-group-label">Programming</p>
+            <div class="rec-skill-tags">
+              <span class="rec-skill-tag">Python</span>
+              <span class="rec-skill-tag">Java</span>
+              <span class="rec-skill-tag">C++</span>
+              <span class="rec-skill-tag">TypeScript</span>
+              <span class="rec-skill-tag">Bash</span>
+            </div>
+          </div>
+          <div class="rec-skill-group">
+            <p class="rec-skill-group-label">Web Development</p>
+            <div class="rec-skill-tags">
+              <span class="rec-skill-tag">React</span>
+              <span class="rec-skill-tag">Angular</span>
+              <span class="rec-skill-tag">HTML &amp; CSS</span>
+              <span class="rec-skill-tag">Bootstrap</span>
+              <span class="rec-skill-tag">Node.js</span>
+            </div>
+          </div>
+          <div class="rec-skill-group">
+            <p class="rec-skill-group-label">Backend &amp; APIs</p>
+            <div class="rec-skill-tags">
+              <span class="rec-skill-tag">REST</span>
+              <span class="rec-skill-tag">GraphQL</span>
+              <span class="rec-skill-tag">Schema Design</span>
+            </div>
+          </div>
+          <div class="rec-skill-group">
+            <p class="rec-skill-group-label">Database</p>
+            <div class="rec-skill-tags">
+              <span class="rec-skill-tag">MySQL</span>
+              <span class="rec-skill-tag">SQL</span>
+            </div>
+          </div>
+          <div class="rec-skill-group">
+            <p class="rec-skill-group-label">AI &amp; ML</p>
+            <div class="rec-skill-tags">
+              <span class="rec-skill-tag">LLM Integration</span>
+              <span class="rec-skill-tag">RAG Pipelines</span>
+              <span class="rec-skill-tag">OpenAI API</span>
+            </div>
+          </div>
+          <div class="rec-skill-group">
+            <p class="rec-skill-group-label">Design &amp; Tools</p>
+            <div class="rec-skill-tags">
+              <span class="rec-skill-tag">Figma</span>
+              <span class="rec-skill-tag">Product Design</span>
+              <span class="rec-skill-tag">UI/UX</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURED PROJECTS -->
+      <div class="rec-section">
+        <div class="rec-section-head">
+          <p class="eyebrow">Works</p>
+          <h3>Featured Projects</h3>
+        </div>
+        <div class="rec-project-list">
+
+          <a href="https://kaelcodes.github.io/supercalendar/" target="_blank" rel="noopener noreferrer" class="rec-project">
+            <div>
+              <h4>SuperCalendar <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--teal);font-weight:400;">2025</span></h4>
+              <p>Offline-first calendar app with full media support — images, video, and audio — no internet connection required.</p>
+              <span class="rec-project-meta">React · GoogleCalendar API</span>
+            </div>
+            <span class="rec-project-link">View ↗</span>
+          </a>
+
+          <div class="rec-project">
+            <div>
+              <h4>NeighborNet <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--slate);font-weight:400;">2024</span></h4>
+              <p>Lightweight social network designed to connect neighbors and strengthen local communities.</p>
+              <span class="rec-project-meta">Figma · Bootstrap · MySQL</span>
+            </div>
+            <span class="rec-project-soon">Soon</span>
+          </div>
+
+          <div class="rec-project">
+            <div>
+              <h4>PokeHomeroom <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--slate);font-weight:400;">2026</span></h4>
+              <p>Comprehensive Pokémon data platform with type matching, battle tools, and an interactive database.</p>
+              <span class="rec-project-meta">HTML/CSS · MySQL · JavaScript</span>
+            </div>
+            <span class="rec-project-soon">Soon</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="rec-section">
+        <div class="rec-section-head">
+          <p class="eyebrow">Contact</p>
+          <h3>Get in Touch</h3>
+        </div>
+        <div class="rec-contact-list">
+          <a href="mailto:karlburgos36@gmail.com" class="rec-contact-row">
+            <span class="rec-contact-label">Email</span>
+            <span class="rec-contact-value">karlburgos36@gmail.com</span>
+          </a>
+          <a href="https://github.com/kaelcodes" target="_blank" rel="noopener noreferrer" class="rec-contact-row">
+            <span class="rec-contact-label">GitHub</span>
+            <span class="rec-contact-value">github.com/kaelcodes</span>
+          </a>
+          <a href="https://linkedin.com/in/karl-burgos" target="_blank" rel="noopener noreferrer" class="rec-contact-row">
+            <span class="rec-contact-label">LinkedIn</span>
+            <span class="rec-contact-value">linkedin.com/in/karl-burgos</span>
+          </a>
+          <div class="rec-contact-row" style="cursor:default;">
+            <span class="rec-contact-label">Based in</span>
+            <span class="rec-contact-value">Tuguegarao City, PH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESUME -->
+      <div class="rec-resume-cta">
+        <p>Full work history, education, and references</p>
+        <a href="/assets/Kael-Resume.pdf" target="_blank" rel="noopener noreferrer" class="rec-resume-btn">
+          ↓ View / Download Full Resume
+        </a>
+        <p style="font-size:0.62rem;opacity:0.5;">Opens in a new tab · PDF</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="rec-footer">Karl Burgos · Full-Stack / AI Engineer · Tuguegarao City, PH · © 2026</div>
+
 </div>
 
 <script>
@@ -1017,10 +1585,74 @@
     if(e.target === devOverlay) closeDev();
   });
 
-  // close on Escape
+  /* ---- RECRUITER MODE ---- */
+  const recOverlay    = document.getElementById('recOverlay');
+  const recExit       = document.getElementById('recExit');
+  const openRecruiter = document.getElementById('openRecruiter');
+
+  function openRec(){
+    closeDev();
+    recOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    recExit.focus();
+  }
+  function closeRec(){
+    recOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    devBtn.focus();
+  }
+
+  openRecruiter.addEventListener('click', openRec);
+  recExit.addEventListener('click', closeRec);
+
+  // close on Escape — both overlays
   document.addEventListener('keydown', e => {
-    if(e.key === 'Escape' && devOverlay.classList.contains('open')) closeDev();
+    if(e.key === 'Escape'){
+      if(recOverlay.classList.contains('open')) closeRec();
+      else if(devOverlay.classList.contains('open')) closeDev();
+    }
   });
+
+  /* ---- LIVE VISITOR COUNT (Supabase Realtime Presence) ---- */
+  // HOW TO ENABLE:
+  // 1. Create a free project at https://supabase.com
+  // 2. Project Settings → API → copy Project URL and anon/public key
+  // 3. Paste both values below (the anon key is safe to expose publicly)
+  const SUPA_URL = '';   // e.g. 'https://abcdef.supabase.co'
+  const SUPA_KEY = '';   // your project's anon/public key
+
+  const visitorCount = document.getElementById('visitorCount');
+
+  function setCount(n){
+    visitorCount.textContent = (n != null && n > 0) ? `${n} online` : 'online';
+  }
+
+  if(SUPA_URL && SUPA_KEY){
+    (function initPresence(){
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+      script.onload = function(){
+        try {
+          const client  = supabase.createClient(SUPA_URL, SUPA_KEY);
+          const channel = client.channel('portfolio-visitors', {
+            config: { presence: { key: crypto.randomUUID() } }
+          });
+          channel
+            .on('presence', { event: 'sync' }, () => {
+              const state = channel.presenceState();
+              setCount(Object.keys(state).length);
+            })
+            .subscribe(async status => {
+              if(status === 'SUBSCRIBED'){
+                await channel.track({ online_at: new Date().toISOString() });
+              }
+            });
+        } catch(e){ /* falls back to "online" */ }
+      };
+      script.onerror = function(){ /* falls back to "online" */ };
+      document.head.appendChild(script);
+    })();
+  }
 </script>
 
 </body>
