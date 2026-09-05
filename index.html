@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>krlemman_portfolio</title>
+<title>Karl Burgos — Full-Stack / AI Engineer</title>
+<meta name="description" content="Full-Stack and AI Engineer based in Tuguegarao City. I build web apps, APIs, and intelligent systems — sometimes for fun, sometimes for good.">
+<meta property="og:title" content="Karl Burgos — Full-Stack / AI Engineer">
+<meta property="og:description" content="Full-Stack and AI Engineer based in Tuguegarao City. I build web apps, APIs, and intelligent systems — sometimes for fun, sometimes for good.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Karl Burgos — Full-Stack / AI Engineer">
+<meta name="twitter:description" content="Full-Stack and AI Engineer based in Tuguegarao City. I build web apps, APIs, and intelligent systems — sometimes for fun, sometimes for good.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -407,6 +414,15 @@
     transform:translateX(0);
   }
 
+  .contact-row--static{
+    cursor:default;
+  }
+  .contact-row--static:hover{
+    padding-left:4px;
+    border-color:var(--line);
+  }
+  .contact-row--static .arrow{ display:none; }
+
   footer{
     text-align:center;
     padding:32px 0 48px;
@@ -453,7 +469,7 @@
     <p class="eyebrow">Summary</p>
     <h1 class="home-name">Karl Burgos</h1>
     <p class="home-bio">
-      AI Engineer. I build small projects for fun,
+      Full-Stack / AI Engineer. I build small projects for fun,
       learning new things, and occasionally building software for effective altruism.
       Based in Tuguegarao City, working with teams everywhere.
     </p>
@@ -490,7 +506,7 @@
           <div class="skill-card">
             <p class="eyebrow">04</p>
             <h3>AI & Machine Learning</h3>
-            <p>Building intelligent systems and leveraging AI to solve real-world problems.</p>
+            <p>LLM integration, RAG pipelines, and OpenAI API — turning models into useful, shippable tools.</p>
           </div>
           <!-- duplicate set — required for a seamless loop, keep identical to above -->
           <div class="skill-card" aria-hidden="true">
@@ -511,7 +527,7 @@
           <div class="skill-card" aria-hidden="true">
             <p class="eyebrow">04</p>
             <h3>AI & Machine Learning</h3>
-            <p>Building intelligent systems and leveraging AI to solve real-world problems.</p>
+            <p>LLM integration, RAG pipelines, and OpenAI API — turning models into useful, shippable tools.</p>
           </div>
         </div>
       </div>
@@ -543,7 +559,7 @@
   <!-- WORKS -->
   <section id="works">
     <div class="section-head">
-      <p class="eyebrow">Works(wala pang link)</p>
+      <p class="eyebrow">Works</p>
       <h2>Stuff I've built</h2>
     </div>
 
@@ -554,7 +570,7 @@
         <p>A lightweight social network for connecting neighbors and building community.</p>
         <div class="work-tags"><span>Figma</span><span>Bootstrap</span><span>MySQL</span></div>
       </div>
-      <a href="#" class="work-link">View →</a>
+      <span class="work-link">Soon →</span>
     </div>
 
     <div class="work-item">
@@ -564,7 +580,7 @@
         <p>Offline-first calendar app for managing events and tasks without an internet connection. Complete with image, videos, and audio support.</p>
         <div class="work-tags"><span>React</span><span>GoogleCalendar</span></div>
       </div>
-      <a href="https://kaelcodes.github.io/supercalendar/" class="work-link">View →</a>
+      <a href="https://kaelcodes.github.io/supercalendar/" class="work-link" target="_blank" rel="noopener noreferrer">View →</a>
     </div>
 
     <div class="work-item">
@@ -574,7 +590,7 @@
         <p>Free-for-all website for pokemon data, typing, and battling. With a comprehensive database and interactive features.</p>
         <div class="work-tags"><span>HTML/CSS</span><span>MySQL</span><span>JavaScript</span></div>
       </div>
-      <a href="#" class="work-link">View →</a>
+      <span class="work-link">Soon →</span>
     </div>
   </section>
 
@@ -590,21 +606,21 @@
         <span class="contact-value">karlburgos36@gmail.com</span>
         <span class="arrow">→</span>
       </a>
-      <a class="contact-row" href="#">
+      <a class="contact-row" href="https://github.com/kaelcodes" target="_blank" rel="noopener noreferrer">
         <span class="contact-label">GitHub</span>
         <span class="contact-value">github.com/kaelcodes</span>
         <span class="arrow">→</span>
       </a>
-      <a class="contact-row" href="#">
+      <a class="contact-row" href="https://linkedin.com/in/karl-burgos" target="_blank" rel="noopener noreferrer">
         <span class="contact-label">LinkedIn</span>
-        <span class="contact-value">in/karl-burgos</span>
+        <span class="contact-value">linkedin.com/in/karl-burgos</span>
         <span class="arrow">→</span>
       </a>
-      <a class="contact-row" href="#">
+      <div class="contact-row contact-row--static">
         <span class="contact-label">Based in</span>
         <span class="contact-value">Tuguegarao City, PH</span>
-        <span class="arrow">→</span>
-      </a>
+        <span class="arrow" aria-hidden="true"></span>
+      </div>
     </div>
   </section>
 
