@@ -435,6 +435,7 @@
     .ribbon-nav{ gap:14px; }
     .work-item{ grid-template-columns:1fr; }
     .work-link{ padding-top:0; }
+    .ribbon{ overflow:hidden; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -447,12 +448,257 @@
     outline:2px solid var(--teal);
     outline-offset:3px;
   }
+
+  /* ---------- LIVE CLOCK ---------- */
+  .ribbon-clock{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+    color:var(--slate);
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    line-height:1.3;
+    white-space:nowrap;
+    user-select:none;
+  }
+  .ribbon-clock .clock-time{
+    color:var(--bone);
+    font-size:0.8rem;
+  }
+
+  /* ---------- VISITOR INDICATOR ---------- */
+  .visitor-pill{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    z-index:200;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--teal);
+    background:rgba(20,24,27,0.82);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border:1px solid rgba(95,168,160,0.25);
+    border-radius:2px;
+    padding:6px 10px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    pointer-events:none;
+  }
+  .visitor-pill .vpulse{
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--teal);
+    position:relative;
+    flex-shrink:0;
+  }
+  .visitor-pill .vpulse::after{
+    content:'';
+    position:absolute;
+    inset:-3px;
+    border-radius:50%;
+    background:var(--teal);
+    opacity:0.35;
+    animation:vpulse 2s ease-out infinite;
+  }
+  @keyframes vpulse{
+    0%  { transform:scale(1);   opacity:0.35; }
+    70% { transform:scale(2.2); opacity:0; }
+    100%{ transform:scale(1);   opacity:0; }
+  }
+
+  /* ---------- DEV MODE ---------- */
+  .dev-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:200;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--slate);
+    background:rgba(20,24,27,0.82);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:7px 12px;
+    cursor:pointer;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .dev-btn:hover{
+    border-color:var(--teal);
+    color:var(--bone);
+  }
+
+  .dev-overlay{
+    position:fixed;
+    inset:0;
+    z-index:300;
+    background:rgba(20,24,27,0.7);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    display:flex;
+    align-items:flex-end;
+    justify-content:flex-end;
+    padding:20px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.2s ease;
+  }
+  .dev-overlay.open{
+    opacity:1;
+    pointer-events:all;
+  }
+
+  .dev-panel{
+    width:100%;
+    max-width:360px;
+    background:var(--ink-soft);
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+    transform:translateY(16px);
+    transition:transform 0.25s cubic-bezier(.65,0,.35,1);
+  }
+  .dev-overlay.open .dev-panel{
+    transform:translateY(0);
+  }
+
+  .dev-panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 18px;
+    border-bottom:1px solid var(--line);
+  }
+  .dev-panel-head .eyebrow{
+    color:var(--teal);
+    font-size:0.7rem;
+  }
+  .dev-close{
+    background:none;
+    border:none;
+    color:var(--slate);
+    font-size:1.1rem;
+    cursor:pointer;
+    line-height:1;
+    padding:2px 4px;
+    border-radius:2px;
+    transition:color 0.2s ease;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .dev-close:hover{ color:var(--bone); }
+
+  .dev-panel-body{
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  .dev-section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--rust);
+    margin-bottom:8px;
+  }
+
+  .dev-build-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .dev-build-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:9px 10px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    color:var(--bone);
+    text-decoration:none;
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .dev-build-item:hover{
+    border-color:var(--teal);
+    background:rgba(95,168,160,0.06);
+  }
+  .dev-build-item .dbi-meta{
+    font-size:0.65rem;
+    color:var(--slate);
+    margin-top:2px;
+  }
+  .dev-build-item .dbi-left{ display:flex; flex-direction:column; }
+  .dev-build-item .dbi-arrow{ color:var(--teal); font-size:0.8rem; }
+
+  .dev-link-row{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .dev-link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:9px 10px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    color:var(--slate);
+    text-decoration:none;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .dev-link:hover{
+    border-color:var(--teal);
+    color:var(--bone);
+  }
+  .dev-link span:last-child{ color:var(--teal); }
+
+  .dev-panel-foot{
+    padding:10px 18px;
+    border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem;
+    color:var(--slate);
+    text-align:center;
+  }
+
+  @media(max-width:640px){
+    .dev-overlay{
+      align-items:flex-end;
+      justify-content:center;
+      padding:0;
+    }
+    .dev-panel{
+      max-width:100%;
+      border-left:none;
+      border-right:none;
+      border-bottom:none;
+      border-radius:0;
+    }
+    .ribbon-clock .clock-date{ display:none; }
+  }
 </style>
 </head>
 <body>
 
 <nav class="ribbon">
   <a href="#home" class="ribbon-mark"><span class="dot"></span>krl.emman</a>
+  <div id="ribbonClock" class="ribbon-clock" aria-live="off" aria-label="Current local time">
+    <span class="clock-time" id="clockTime">--:--:--</span>
+    <span class="clock-date" id="clockDate">--- --, ----</span>
+  </div>
   <div class="ribbon-nav" id="ribbonNav">
     <a href="#home" data-section="home" class="active">Home</a>
     <a href="#skills" data-section="skills">Skills</a>
@@ -628,6 +874,71 @@
 
 <footer>AI Engineering, simple is best. © 2026 Karl Burgos</footer>
 
+<!-- VISITOR INDICATOR -->
+<div class="visitor-pill" aria-label="You are online">
+  <span class="vpulse" aria-hidden="true"></span>
+  you are online
+</div>
+
+<!-- DEV MODE BUTTON -->
+<button class="dev-btn" id="devBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="devOverlay">&lt;/&gt; DEV</button>
+
+<!-- DEV MODE PANEL -->
+<div class="dev-overlay" id="devOverlay" role="dialog" aria-modal="true" aria-label="Developer panel">
+  <div class="dev-panel">
+    <div class="dev-panel-head">
+      <span class="eyebrow">// dev mode</span>
+      <button class="dev-close" id="devClose" aria-label="Close developer panel">✕</button>
+    </div>
+    <div class="dev-panel-body">
+
+      <div>
+        <p class="dev-section-label">Featured Builds</p>
+        <div class="dev-build-list">
+          <a href="https://kaelcodes.github.io/supercalendar/" target="_blank" rel="noopener noreferrer" class="dev-build-item">
+            <span class="dbi-left">
+              <span>SuperCalendar</span>
+              <span class="dbi-meta">React · GoogleCalendar · 2025</span>
+            </span>
+            <span class="dbi-arrow">↗</span>
+          </a>
+          <div class="dev-build-item" style="cursor:default;opacity:0.6;">
+            <span class="dbi-left">
+              <span>NeighborNet</span>
+              <span class="dbi-meta">Figma · Bootstrap · MySQL · 2024</span>
+            </span>
+            <span class="dbi-arrow" style="color:var(--slate)">Soon</span>
+          </div>
+          <div class="dev-build-item" style="cursor:default;opacity:0.6;">
+            <span class="dbi-left">
+              <span>PokeHomeroom</span>
+              <span class="dbi-meta">HTML/CSS · MySQL · JS · 2026</span>
+            </span>
+            <span class="dbi-arrow" style="color:var(--slate)">Soon</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="dev-section-label">Links</p>
+        <div class="dev-link-row">
+          <a href="https://github.com/kaelcodes" target="_blank" rel="noopener noreferrer" class="dev-link">
+            <span>GitHub</span><span>github.com/kaelcodes ↗</span>
+          </a>
+          <a href="https://linkedin.com/in/karl-burgos" target="_blank" rel="noopener noreferrer" class="dev-link">
+            <span>LinkedIn</span><span>karl-burgos ↗</span>
+          </a>
+          <a href="mailto:karlburgos36@gmail.com" class="dev-link">
+            <span>Email</span><span>karlburgos36@gmail.com ↗</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <div class="dev-panel-foot">Karl Burgos · Full-Stack / AI Engineer · Tuguegarao City, PH</div>
+  </div>
+</div>
+
 <script>
   const navLinks = Array.from(document.querySelectorAll('.ribbon-nav a[data-section]'));
   const tail = document.getElementById('ribbonTail');
@@ -664,6 +975,52 @@
   }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
 
   sections.forEach(s => s && observer.observe(s));
+
+  /* ---- LIVE CLOCK ---- */
+  const clockTime = document.getElementById('clockTime');
+  const clockDate = document.getElementById('clockDate');
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function tickClock(){
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2,'0');
+    const mm = String(now.getMinutes()).padStart(2,'0');
+    const ss = String(now.getSeconds()).padStart(2,'0');
+    clockTime.textContent = `${hh}:${mm}:${ss}`;
+    clockDate.textContent = `${days[now.getDay()]} ${months[now.getMonth()]} ${now.getDate()}`;
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  /* ---- DEV MODE PANEL ---- */
+  const devBtn     = document.getElementById('devBtn');
+  const devOverlay = document.getElementById('devOverlay');
+  const devClose   = document.getElementById('devClose');
+
+  function openDev(){
+    devOverlay.classList.add('open');
+    devBtn.setAttribute('aria-expanded','true');
+    devClose.focus();
+  }
+  function closeDev(){
+    devOverlay.classList.remove('open');
+    devBtn.setAttribute('aria-expanded','false');
+    devBtn.focus();
+  }
+
+  devBtn.addEventListener('click', openDev);
+  devClose.addEventListener('click', closeDev);
+
+  // close on backdrop click
+  devOverlay.addEventListener('click', e => {
+    if(e.target === devOverlay) closeDev();
+  });
+
+  // close on Escape
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && devOverlay.classList.contains('open')) closeDev();
+  });
 </script>
 
 </body>
