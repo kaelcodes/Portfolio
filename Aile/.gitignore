@@ -1,0 +1,17 @@
+# Aile Mobile — local ignores
+
+# dependencies
+node_modules/
+
+# build output
+dist/
+dist-ssr/
+
+# local env / secrets — never commit real values
+.env
+.env.*
+!.env.example
+
+# logs / editor
+*.log
+.DS_Store
