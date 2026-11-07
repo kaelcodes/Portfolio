@@ -36,3 +36,9 @@ export function setCachedAccent(accent: AccentColor): void {
   if (typeof window === "undefined") return;
   localStorage.setItem(CACHE_KEY, accent);
 }
+
+/** Remove the cached accent from localStorage (call on sign-out). */
+export function clearCachedAccent(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(CACHE_KEY);
+}

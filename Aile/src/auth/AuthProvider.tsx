@@ -11,6 +11,7 @@ import {
 } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
+import { applyAccent, clearCachedAccent } from "../lib/accent";
 
 interface AuthContextValue {
   session: Session | null;
@@ -49,10 +50,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // 2) Subscribe to future auth changes (login, logout, token refresh).
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+    } = supabase.auth.onAuthStateChange((event, nextSession) => {
       if (!active) return;
       setSession(nextSession);
       setError(null);
+      // When the session ends (explicit logout or expiry), clear the accent
+      // cache and restore the default indigo so the login page never shows
+      // the previous user's color.
+      if (event === 'SIGNED_OUT') {
+        clearCachedAccent(); // removes aile-accent from localStorage
+        applyAccent('indigo'); // restores the default CSS variable immediately
+      }
     });
 
     // 3) Cleanup: stop updating state and unsubscribe.
