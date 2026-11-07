@@ -20,7 +20,7 @@ import {
   DEFAULT_PREFERENCES,
   type PreferencesInput,
 } from "../services/preferences";
-import { applyAccent } from "../lib/accent";
+import { applyAccent, setCachedAccent } from "../lib/accent";
 
 interface PreferencesContextValue {
   /** Current effective preferences (saved row, or defaults if none yet). */
@@ -59,6 +59,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
           setPrefs(loaded);
           setHasRow(true);
           applyAccent(loaded.accent_color);
+          setCachedAccent(loaded.accent_color);
         } else {
           // No row: use defaults for display only, do NOT persist.
           setPrefs(DEFAULT_PREFERENCES);
@@ -90,6 +91,7 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
       setPrefs(applied);
       setHasRow(true);
       applyAccent(applied.accent_color);
+      setCachedAccent(applied.accent_color);
       return true;
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to save preferences.");

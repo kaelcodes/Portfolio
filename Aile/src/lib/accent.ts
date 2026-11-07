@@ -18,3 +18,21 @@ export const ACCENTS: AccentColor[] = ["indigo", "emerald", "amber", "rose", "sk
 export function applyAccent(accent: AccentColor): void {
   document.documentElement.style.setProperty("--accent", ACCENT_HEX[accent]);
 }
+
+const CACHE_KEY = "aile-accent";
+
+/** Read the last-saved accent from localStorage. Returns null if absent or invalid. */
+export function getCachedAccent(): AccentColor | null {
+  if (typeof window === "undefined") return null;
+  const value = localStorage.getItem(CACHE_KEY);
+  if (value && (ACCENTS as string[]).includes(value)) {
+    return value as AccentColor;
+  }
+  return null;
+}
+
+/** Persist the current accent to localStorage for use on the next load. */
+export function setCachedAccent(accent: AccentColor): void {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(CACHE_KEY, accent);
+}
