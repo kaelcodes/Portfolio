@@ -254,6 +254,55 @@
   background: rgba(138,148,160,0.25);
 }
 
+/* macOS-style traffic lights — visible symbols, even before hover */
+.ft-header-left .term-dot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  box-shadow: 0 0 7px currentColor;
+}
+
+.ft-header-left .term-dot::after {
+  display: block;
+  color: rgba(20,24,27,0.82);
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.78;
+}
+
+.ft-header-left .term-dot:nth-child(1) {
+  color: #ff5f57;
+  background: #ff5f57;
+  box-shadow: 0 0 8px rgba(255,95,87,0.38);
+}
+.ft-header-left .term-dot:nth-child(1)::after { content: "×"; }
+
+.ft-header-left .term-dot:nth-child(2) {
+  color: #febc2e;
+  background: #febc2e;
+  box-shadow: 0 0 8px rgba(254,188,46,0.34);
+}
+.ft-header-left .term-dot:nth-child(2)::after {
+  content: "";
+  width: 5px;
+  height: 1px;
+  background: rgba(20,24,27,0.82);
+}
+
+.ft-header-left .term-dot:nth-child(3) {
+  color: #28c840;
+  background: #28c840;
+  box-shadow: 0 0 8px rgba(40,200,64,0.34);
+}
+.ft-header-left .term-dot:nth-child(3)::after { content: "+"; }
+
+.ft-header-left:hover .term-dot::after { opacity: 1; }
+
 .ft-title {
   font-family   : var(--term-mono);
   font-size     : 0.7rem;
