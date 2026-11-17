@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/terminal.css">
 <style>
   :root{
     --ink:#14181b;
@@ -1116,6 +1117,38 @@
       <a href="#works" class="btn primary">What I built</a>
       <a href="#contact" class="btn">Get in touch</a>
     </div>
+
+    <!-- EMBEDDED TERMINAL -->
+    <div class="home-terminal-wrap">
+      <p class="home-terminal-hint">
+        Interactive shell &nbsp;·&nbsp;
+        <kbd>Ctrl+Shift+K</kbd> for floating window
+      </p>
+      <div id="homeTerminal" role="region" aria-label="Interactive terminal" tabindex="-1">
+        <div class="term-titlebar" aria-hidden="true">
+          <span class="term-dot"></span>
+          <span class="term-dot"></span>
+          <span class="term-dot"></span>
+          <span class="term-title">krl.emman — terminal</span>
+        </div>
+        <div class="term-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
+        <div class="term-prompt-row">
+          <span class="term-prompt-glyph" aria-hidden="true">›</span>
+          <label for="homeTermInput" class="sr-only">Terminal input</label>
+          <input
+            id="homeTermInput"
+            class="term-input"
+            type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="type a command…"
+            aria-label="Terminal command input"
+          >
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- SKILLS -->
@@ -1269,6 +1302,48 @@
 </main>
 
 <footer>AI Engineering, simple is best. © 2026 Karl Burgos</footer>
+
+<!-- TERMINAL TRIGGER (floating FAB, site-wide) -->
+<button
+  id="termTrigger"
+  aria-label="Open terminal (Ctrl+Shift+K)"
+  aria-expanded="false"
+  aria-controls="floatingTerminal"
+  title="Terminal  Ctrl+Shift+K"
+>›_</button>
+
+<!-- FLOATING TERMINAL OVERLAY -->
+<div
+  id="floatingTerminal"
+  role="complementary"
+  aria-label="Floating terminal"
+>
+  <div class="ft-header">
+    <div class="ft-header-left">
+      <span class="term-dot" aria-hidden="true"></span>
+      <span class="term-dot" aria-hidden="true"></span>
+      <span class="term-dot" aria-hidden="true"></span>
+      <span class="ft-title">krl.emman — terminal</span>
+    </div>
+    <button id="ftClose" class="ft-close" aria-label="Close terminal">✕</button>
+  </div>
+  <div class="term-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
+  <div class="term-prompt-row">
+    <span class="term-prompt-glyph" aria-hidden="true">›</span>
+    <label for="floatTermInput" class="sr-only">Terminal input</label>
+    <input
+      id="floatTermInput"
+      class="term-input"
+      type="text"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      placeholder="type a command…"
+      aria-label="Terminal command input"
+    >
+  </div>
+</div>
 
 <!-- VISITOR INDICATOR -->
 <div class="visitor-pill" id="visitorPill" aria-live="polite" aria-label="Visitor status">
@@ -1685,6 +1760,8 @@
     })();
   }
 </script>
+
+<script src="assets/js/terminal.js"></script>
 
 </body>
 </html>
