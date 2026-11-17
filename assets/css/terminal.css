@@ -368,6 +368,9 @@
 .home-terminal-wrap {
   transition: margin-top 0.22s ease;
 }
+.home-terminal-hint {
+  max-height: 32px;
+}
 .home-terminal-hint,
 #homeTerminal {
   transition: opacity 0.2s ease, max-height 0.24s ease, margin 0.2s ease;
